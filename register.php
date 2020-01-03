@@ -1,4 +1,29 @@
 
+<?php
+session_start();
+//$_SESSION['username']='';
+require_once('connection.php');
+if(isset($_POST['save'])){
+    $user=mysqli_real_escape_string($con,trim($_POST['uname']));
+    $number=mysqli_real_escape_string($con,trim($_POST['fname']));
+    $email=mysqli_real_escape_string($con,trim($_POST['lname']));
+   
+    //list($month, $day, $year) = preg_split('[,]', $address);
+    //echo "Month: $month; Day: $day; Year: $year<br />\n";
+  
+    $sql="insert into customer (name,email,number) values('$user','$email','$number')";
+    $result=mysqli_query($con,$sql);
+    if($result){
+      $_SESSION['username']=$user;
+        sleep(1.5);
+        header("Location: /dashboard/register.php");
+        exit();
+    }else{
+        echo 'Failed';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,10 +35,13 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
   </head>
   <body>
-    <form class="form" action="signup.php" method="POST" enctype="multipart/form-data">
+    <form class="form" action="register.php" method="POST" enctype="multipart/form-data">
     <div class="imgcontainer">
         <img src="images/gleeimg.png" alt="Logo" class="Logo" width="150" height="150"/>
       </div>
+      <div class="addcust">
+    <a href="sendupdate.php" alt="account" height="80">Send Update</a>
+  </div>
       <div class="container">
         <label for="uname"><b>Company</b></label>
         <input

@@ -5,7 +5,7 @@ body {
   }
   
   input[type="text"],
-  input[type="password"] {
+  input[type="password"],select,input[type="list"] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -13,9 +13,20 @@ body {
     border: 3px solid rgb(39, 38, 38);
     box-sizing: border-box;
   }
+  .addcust{
+
+    position: absolute;
+    right: 15em;
+    color: yellowgreen;
+    background-color: yellowgreen;
+    top: 20px;
+    padding:0.7em;
+    border-style: groove;
+  }
   a{
     font-family: 'Montserrat', sans-serif;
-    color: white;
+    color: black;
+    
     text-decoration: none;
   }
 
