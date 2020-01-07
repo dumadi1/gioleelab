@@ -1,6 +1,17 @@
 var name;
 var emailed;
+function compose(stage){
 
+    console.log(stage);
+    var message=document.getElementById("message");
+    var sample=document.getElementById("sample");
+    if(stage == "Sample Received"){
+        message.value="Thank you for Dropping off your sample with sample number, "+sample.value+" , It has been well received. Thank you for your patronage";
+    }else{
+        message.value="Please be informed your sample is at "+stage+" Stage. Thank you for your patronage";
+    }
+
+}
 function doSomething(index){
     
     var email=document.getElementById("email");
@@ -27,7 +38,8 @@ if(index==1){
     //alert("<?php echo returnemail(name);?>");
 
 }else if(index==2){
-    phone.setAttribute("type","text");
+   phone.setAttribute("type","text");
+   //phone.style.display='block';
     label2.style.display='block';
     email.setAttribute("type","hidden");
     label.style.display='none';
@@ -43,6 +55,7 @@ if(index==1){
 
 }else{
     phone.setAttribute("type","text");
+   // phone.style.display='block';
     label2.style.display='block';
     email.setAttribute("type","text");
     label.style.display='block';
@@ -83,3 +96,4 @@ label.style.display='none';
 function ret(){
     return name;
 }
+

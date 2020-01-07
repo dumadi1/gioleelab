@@ -31,7 +31,7 @@ $sql="select * from customer";
 
   </head>
   <body>
-    <form class="form" action="signup.php" method="POST" enctype="multipart/form-data">
+    <form class="form" action="sendit.php" method="POST" enctype="multipart/form-data">
     <div class="imgcontainer">
         <img src="images/gleeimg.png" alt="Logo" class="Logo" width="150" height="150"/>
       </div>
@@ -41,7 +41,7 @@ $sql="select * from customer";
 
       <div class="container">
       <label for="cust"><b>Customer</b></label>
-      <input type="text" list="customers" required onblur="myFunction(this.value)">
+      <input type="text" list="customers" name="customer" required onblur="myFunction(this.value)">
         <datalist id="customers" name="customer" class="customer">
 
           <?php
@@ -66,8 +66,9 @@ $sql="select * from customer";
         />
 
         <label for="stage"><b>Stage</b></label>
-    <select name="stage" class="stage">
-    
+    <select name="stage" class="stage" onchange="compose(this.value)">
+        <option selected>Please select one option</option>
+        <option>Sample Received</option>
         <option>Sample Prep</option>
         <option>GC Analysis</option>
         <option>Heavy Metals Analysis</option>
@@ -84,9 +85,9 @@ $sql="select * from customer";
         <label for="method"><b>Method of update</b></label>
         <select name="method" class="method" onchange="if (this.selectedIndex != -1) doSomething(this.selectedIndex);" onfocus="this.selectedIndex = -1;">
         <option selected>Please select one option</option>
-    <option>Email</option>
-    <option>Text Message</option>
-    <option>Both</option>
+    <option value="1">Email</option>
+    <option value="2">Text Message</option>
+    <option value="3">Both</option>
    
 </select>
 
@@ -101,6 +102,7 @@ $sql="select * from customer";
         />
     
         <label id="phoneholder" for="number" hidden><b>Phone Number</b></label>
+       
         <input
           type="hidden"
           id="phone"
@@ -109,6 +111,15 @@ $sql="select * from customer";
           required
     
         />
+        <label id="phoneholder" for="number"><b>Message</b></label>
+        <br>
+        <textarea name="message" cols="40" rows="6" id="message"></textarea>
+        <!-- <input
+          type="text"
+          id="message"
+          placeholder="Enter Message"
+          name="Message"
+        /> -->
 
         
 
