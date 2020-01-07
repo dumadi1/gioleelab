@@ -16,7 +16,7 @@ if(isset($_POST['save'])){
    // echo $method;
     if(strcmp($method,"1")==0){
  $email=mysqli_real_escape_string($con,trim($_POST['email']));
- echo $email;
+ //echo $email;
  $message=$_POST['message'];
 
 doemail($email,$message);
@@ -74,13 +74,13 @@ function doemail($email,$message){
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'dumadi.lesi@gmail.com';                     // SMTP username
-        $mail->Password   = 'sdtuzavdqexfnoqv';                               // SMTP password
+        $mail->Username   = 'gioleelab@gmail.com';                     // SMTP username
+        $mail->Password   = 'ymzwmhmqioanjuxz';                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
         $mail->Port       = 587;                                    // TCP port to connect to
     
         //Recipients
-        $mail->setFrom('dumadi.lesi@gmail.com', 'Giolee Lab');
+        $mail->setFrom('gioleelab@gmail.com', 'Giolee Lab');
         $mail->addAddress($email, 'Esteemed Client');     // Add a recipient
         
     
@@ -89,7 +89,7 @@ function doemail($email,$message){
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Sample Update';
         $mail->Body    = $message;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->AltBody = $message;
     
         $mail->send();
         echo 'Message has been sent';

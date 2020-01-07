@@ -56,7 +56,10 @@ $sql="select * from customer";
           
     <br>
     
-    <label for="sample"><b>Sample ID Number</b></label>
+    
+
+
+    <label for="sample"><b>Sample SiteName/Incident-Number</b></label>
         <input
           type="text"
           id="sample"
@@ -73,6 +76,8 @@ $sql="select * from customer";
         <option>GC Analysis</option>
         <option>Heavy Metals Analysis</option>
         <option>Nutrient Analysis</option>
+        <option>Insitu Analysis</option>
+        <option>Microbiology Analysis</option>
         <option>Toxicological Analysis</option>
         <option>Quality Control Check</option>
         <option>Result Compilation</option>

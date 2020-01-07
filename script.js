@@ -6,7 +6,7 @@ function compose(stage){
     var message=document.getElementById("message");
     var sample=document.getElementById("sample");
     if(stage == "Sample Received"){
-        message.value="Thank you for Dropping off your sample with sample number, "+sample.value+" , It has been well received. Thank you for your patronage";
+        message.value="Thank you for Dropping off your sample with sample information, "+sample.value+" , It has been well received. Thank you for your patronage";
     }else{
         message.value="Please be informed your sample is at "+stage+" Stage. Thank you for your patronage";
     }
@@ -86,11 +86,13 @@ function myFunction(cust){
     var label=document.getElementById("emailholder");
     var phone=document.getElementById("phone");
     var label2=document.getElementById("phoneholder");
+    var alias=document.getElementById("alias");
 name=cust;
 phone.setAttribute("type","hidden");
 label2.style.display='none';
 email.setAttribute("type","hidden");
 label.style.display='none';
+alias.value="here";
 
 }
 function ret(){

@@ -4,19 +4,22 @@ session_start();
 //$_SESSION['username']='';
 require_once('connection.php');
 if(isset($_POST['save'])){
-    $user=mysqli_real_escape_string($con,trim($_POST['uname']));
+    $username=mysqli_real_escape_string($con,trim($_POST['uname']));
+    //$username=trim($username," ");
+    $username=preg_replace('/\s+/', '', $username);
+   // $useralias=mysqli_real_escape_string($con,trim($_POST['alias']));
     $number=mysqli_real_escape_string($con,trim($_POST['fname']));
     $email=mysqli_real_escape_string($con,trim($_POST['lname']));
    
     //list($month, $day, $year) = preg_split('[,]', $address);
     //echo "Month: $month; Day: $day; Year: $year<br />\n";
   
-    $sql="insert into customer (name,email,number) values('$user','$email','$number')";
+    $sql="insert into customer (name,email,number) values('$username','$email','$number')";
     $result=mysqli_query($con,$sql);
     if($result){
       $_SESSION['username']=$user;
         sleep(1.5);
-        header("Location: /dashboard/register.php");
+        header("Location: /dashboard/sendupdate.php");
         exit();
     }else{
         echo 'Failed';
@@ -43,7 +46,7 @@ if(isset($_POST['save'])){
     <a href="sendupdate.php" alt="account" height="80">Send Update</a>
   </div>
       <div class="container">
-        <label for="uname"><b>Company</b></label>
+        <label for="uname"><b>Company Name</b></label>
         <input
           type="text"
           id="name"
@@ -51,6 +54,8 @@ if(isset($_POST['save'])){
           name="uname"
           required
         />
+
+      
     
 
           <label for="fame"><b>Phone Number</b></label>
