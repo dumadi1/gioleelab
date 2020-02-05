@@ -1,6 +1,5 @@
 <?php
 
-require_once('connection.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'PHPMailer/src/Exception.php';
@@ -8,14 +7,14 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
 if(isset($_POST['save'])){
-    $user=mysqli_real_escape_string($con,trim($_POST['customer']));
-    $sampleid=mysqli_real_escape_string($con,trim($_POST['id']));
-    $stage=mysqli_real_escape_string($con,trim($_POST['stage']));
-    $method=mysqli_real_escape_string($con,trim($_POST['method']));
+    $user=trim($_POST['customer']);
+    $sampleid=trim($_POST['id']);
+    $stage=trim($_POST['stage']);
+    $method=trim($_POST['method']);
     // $address=mysqli_real_escape_string($con,trim($_POST['address']));
    // echo $method;
     if(strcmp($method,"1")==0){
- $email=mysqli_real_escape_string($con,trim($_POST['email']));
+ $email=trim($_POST['email']);
  //echo $email;
  $message=$_POST['message'];
 
@@ -33,7 +32,7 @@ donumber($number,$message);
 
 
 
-$email=mysqli_real_escape_string($con,trim($_POST['email']));
+$email=trim($_POST['email']);
 $number=$_POST['number'];
 $message=$_POST['message'];
 doboth($email,$number,$message);
