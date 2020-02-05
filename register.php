@@ -1,29 +1,79 @@
 
 <?php
 session_start();
-//$_SESSION['username']='';
-require_once('connection.php');
-if(isset($_POST['save'])){
-    $username=mysqli_real_escape_string($con,trim($_POST['uname']));
-    //$username=trim($username," ");
-    $username=preg_replace('/\s+/', '', $username);
-   // $useralias=mysqli_real_escape_string($con,trim($_POST['alias']));
-    $number=mysqli_real_escape_string($con,trim($_POST['fname']));
-    $email=mysqli_real_escape_string($con,trim($_POST['lname']));
-   
-    //list($month, $day, $year) = preg_split('[,]', $address);
-    //echo "Month: $month; Day: $day; Year: $year<br />\n";
-  
-    $sql="insert into customer (name,email,number) values('$username','$email','$number')";
-    $result=mysqli_query($con,$sql);
-    if($result){
-      $_SESSION['username']=$user;
-        sleep(1.5);
-        header("Location: /dashboard/sendupdate.php");
-        exit();
-    }else{
-        echo 'Failed';
+class connect {
+  // Connect to main database
+  public static function toMainDatabase() {
+    // NOTE: Most of this is just configurations and you don't really need to memorize
+
+    // Connection info
+    $GLOBALS['connected'] = false;
+    $host = 'gioleelab-db.comsldfmuxpw.us-east-2.rds.amazonaws.com';
+    $username = 'gioleelab';
+    $password = 'Leesimaol2';
+    $database = 'gioleelab';
+    $port = '3306';
+
+    try {
+      // Attempt to connect to database
+      $GLOBALS['connect'] = new PDO('mysql:host='.$host.';dbname='.$database, $username, $password);
+      $GLOBALS['connect']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $GLOBALS['connect']->setAttribute(PDO::ATTR_PERSISTENT, TRUE);
+
+    } catch (Exception $e) {
+      // What to do if connection fails
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //die();
+      } else {
+        die();
+      }
     }
+
+    $GLOBALS['connected'] = true;
+  }
+
+  public static function exampleInsertPDO($name, $email, $number) {
+
+    // $GLOBALS['connect'] is a global variable created in the function above this one
+    $insert = $GLOBALS['connect']->prepare('INSERT INTO customer (name,email, number)
+    VALUES (:cname, :cemail, :cnumber)');
+
+    // By using the prepare function and binding query variables like below we can prevent SQL injection
+    // NOTE: If you ever have an Integer variable instead of String use "PDO::PARAM_INT" instead of "PDO::PARAM_STR"
+   // $insert->bindValue(":cid", $c_id, PDO::PARAM_STR);
+    $insert->bindValue(":cname", $name, PDO::PARAM_STR);
+    $insert->bindValue(":cemail", $email, PDO::PARAM_STR);
+    $insert->bindValue(":cnumber", $number, PDO::PARAM_STR);
+   
+
+    // This will execute the prepared SQL statement with all the variables we binded
+    $insert->execute();
+
+  }
+}
+$db= new connect();
+$db->toMainDatabase();
+
+if(isset($_POST['save'])){
+    $username=trim($_POST['uname']);
+    
+    $username=preg_replace('/\s+/', '', $username);
+   
+    $number=trim($_POST['fname']);
+    $email=trim($_POST['lname']);
+   
+    $db->exampleInsertPDO($username,$email,$number);
+    header("Location: sendupdate.php");
+    // $sql="insert into customer (name,email,number) values('$username','$email','$number')";
+    // $result=mysqli_query($con,$sql);
+    // if($result){
+    //   $_SESSION['username']=$user;
+    //     sleep(1.5);
+    //     header("Location: /dashboard/sendupdate.php");
+    //     exit();
+    // }else{
+    //     echo 'Failed';
+    // }
 }
 ?>
 
